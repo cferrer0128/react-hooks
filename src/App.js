@@ -8,7 +8,7 @@ import './App.css';
 export default function App() {
   
   
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState('Select');
 
   const [todoItems, setTodoItems] = useState([])
 
@@ -41,7 +41,7 @@ export default function App() {
       let arrData=[];
 
       for(var key in result.data){
-        //console.log(`data from e ${result.data[key].bloodGroupName}`);
+       
         arrData.push({
           'bloodGroupName':result.data[key].bloodGroupName,
           'unit':result.data[key].unit,
@@ -51,8 +51,8 @@ export default function App() {
       }//for
       //set data
       setAllTodoItems(arrData);
-      setTodoItems(arrData);
-      setSelectValue('Select one')
+      //setTodoItems(arrData);
+      setSelectValue('Select')
 
     };
     fetchData();
@@ -98,8 +98,11 @@ export default function App() {
       if(e.itemName == event) newTodo.push(e);
     });
     setTodoItems(newTodo);
+    setSelectValue(event)
+   
    
   }
+
   const addTodo = name =>{
     const newTodo = [...todoItems, {name}];
     setTodoItems(newTodo);
@@ -134,8 +137,8 @@ export default function App() {
           Todos in your list: {todoItems.length}
         </p>
 
-        <select  value={selectValue}  onChange={(e) =>selectTodo(e.target.value)}>
-          <option value={selectValue}></option>
+        <select   onChange={(e) =>selectTodo(e.target.value)}>
+          <option value={selectValue}>{selectValue}</option>
             {hospiItems.map((todo, index) => (
                 <TagsTodo
                   key={index}
